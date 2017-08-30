@@ -16,6 +16,9 @@ function autoCreateData(obj) {
   return encrypt(new_psd);
 }
 
+/*
+  * 登录
+*/
 router.post('/login', (req, res, next) => {
   if (!req.body) return res.sendStatus(400);
   let access_token = req.cookies.access_token;
@@ -47,6 +50,9 @@ router.post('/login', (req, res, next) => {
   }
 });
 
+/*
+  * 注册
+*/
 router.post('/register', (req, res, next) => {
   if (!req.body) return res.sendStatus(400);
   if (!req.body.username || !req.body.password)
@@ -66,6 +72,9 @@ router.post('/register', (req, res, next) => {
   })
 });
 
+/*
+  * 忘记密码
+*/
 router.post('/forget', (req, res, next) => {
   if (!req.body) return res.sendStatus(400);
   if (!req.body.username)
@@ -78,6 +87,9 @@ router.post('/forget', (req, res, next) => {
   })
 })
 
+/*
+  * 修改密码
+*/
 router.post('/change-pass', (req, res, next) => {
   let query = req.body;
   const { uid, password, comfirm_password } = query;

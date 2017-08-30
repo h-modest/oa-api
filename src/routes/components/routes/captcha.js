@@ -3,6 +3,9 @@ import captchapng from 'captchapng';
 
 let router = express.Router();
 
+/*
+  * 获取验证码
+*/
 router.get('/captcha', (req, res, next) => {
   let code = parseInt(Math.random()*9000+1000);
   req.session.captcha = code;
