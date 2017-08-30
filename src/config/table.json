@@ -1,0 +1,14 @@
+{
+  "users": {
+    "uid": "String",
+    "username": "String",
+    "password": "String",
+    "sex": "Number",
+    "age": "Number",
+    "email": "String",
+    "phone": "String",
+    "register_date": "Date",
+    "lastest_date": "Date",
+    "indentity": "String"
+  }
+}

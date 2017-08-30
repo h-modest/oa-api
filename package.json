@@ -1,0 +1,28 @@
+{
+  "name": "vue-api",
+  "version": "1.0.0",
+  "description": "vue-oa api",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "body-parser": "^1.17.2",
+    "captchapng": "0.0.1",
+    "connect-multiparty": "^2.0.0",
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.15.5",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.11.9",
+    "pomelo-logger": "^0.1.7",
+    "underscore": "^1.8.3"
+  },
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
