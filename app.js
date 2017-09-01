@@ -3,9 +3,11 @@ import bodyParser from 'body-parser';
 import multipart from 'connect-multiparty';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
+import Mongo from 'connect-mongo';
 
 let app = Express();
 let port = process.env.PORT || 8091;
+let MongoStore = Mongo(session);
 
 import Index from './src/routes/routes';
 import Users from './src/routes/components/routes/users';
@@ -19,12 +21,17 @@ app.use(cookieParser('sessiontest'));
 app.use(session({
   cookie: { maxAge: 24 * 60 * 60 * 1000 }, //默认1天
   secret: 'sessiontest',
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({
+    url: 'mongodb://127.0.0.1/oa',
+    collection: 'sessions',
+  })
 }));
 
-app.get('*', (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+app.all('*', (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", 'http://www.oa.hxq.local');
+  res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Allow-Headers", "Content-Type, Content-length, Authorization, Accept, X-Requested-With");
   res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
   if (req.method == "OPTIONS") res.send(200);

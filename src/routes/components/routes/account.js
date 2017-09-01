@@ -25,10 +25,12 @@ router.post('/login', (req, res, next) => {
   if (!_.isEmpty(access_token) && _.isEqual(access_token, req.body.access_token)) {
     res.send({ code: 200, msg: 'login successful' });
   } else {
-    if (!req.body.username || !req.body.password)
-      return res.send({code: 401, msg: 'required cannot be empty'});
-    let username = req.body.username;
-    let new_psd = encrypt(req.body.password);
+    const { username, password, captcha, is_remember } = req.body;
+    if (!username || !password || !captcha)
+      res.send({code: 401, msg: 'required cannot be empty'});
+    if (!_.isEqual(captcha, req.session.captcha))
+      res.send({code: 401, msg: 'verification code is inconsistent'});
+    let new_psd = encrypt(password);
     let user = {
       username: username,
       password: new_psd,
@@ -39,8 +41,8 @@ router.post('/login', (req, res, next) => {
       else {
         let data = { code: 200, msg: 'login successful' };
         req.session.user = user;
-        if (req.body.is_remember) {
-          let access_token = autoCreateData(req.body.username);
+        if (is_remember) {
+          let access_token = autoCreateData(username);
           res.cookie('access_token', access_token, { maxAge: 900000, httpOnly: true });
           data = Object.assign(data, { access_token: access_token });
         }

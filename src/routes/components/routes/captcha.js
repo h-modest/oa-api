@@ -8,8 +8,8 @@ let router = express.Router();
 */
 router.get('/captcha', (req, res, next) => {
   let code = parseInt(Math.random()*9000+1000);
+  var p = new captchapng(100,40,code); // width,height,numeric captcha
   req.session.captcha = code;
-  var p = new captchapng(80,30,code); // width,height,numeric captcha
   p.color(0, 0, 0, 0);  // First color: background (red, green, blue, alpha)
   p.color(80, 80, 80, 255); // Second color: paint (red, green, blue, alpha)
 
