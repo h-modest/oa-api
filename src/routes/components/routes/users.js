@@ -5,7 +5,7 @@ let router = express.Router();
 
 router.get('/getUsers', (req, res, next) => {
   MongoDB.find('users', {}, {}, (err, result) => {
-    res.send(result);
+    return res.send(result);
   });
 })
 
